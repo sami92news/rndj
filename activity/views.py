@@ -4,6 +4,7 @@ from django.urls import reverse_lazy
 from django.views.decorators.cache import never_cache
 from django.views.decorators.csrf import csrf_exempt
 from django.views.generic import ListView, CreateView, DetailView, UpdateView, DeleteView
+from rest_framework.parsers import MultiPartParser, FormParser
 from rest_framework.views import APIView
 from rest_framework.response import Response
 
@@ -60,39 +61,52 @@ class StudentList(ListView):
         return context
 
 
-class StudentCreate(CreateView):
+class StudentCreate(APIView):
+    parser_classes = (MultiPartParser, FormParser)
+
+    def post(self, request, *args, **kwargs):
+        data = {}
+        for key in request.data:
+            if key != 'encoding':
+                data[key] = request.data[key]
+        obj = Student(**data)
+        obj.save()
+        res = {'status': 'error', 'data': 'Could not save'}
+        if obj.id:
+            res = {'status': 'success', 'data': ''}
+        return JsonResponse(res)
+
+
+class StudentUpdate(APIView):
+    parser_classes = (MultiPartParser, FormParser)
+
+    def post(self, request, *args, **kwargs):
+        data = {}
+        for key in request.data:
+            if key != 'encoding':
+                data[key] = request.data[key]
+        res = {'status': 'error', 'data': 'Could not save'}
+        if not data.get('key'):
+            res['data'] = 'No if given'
+        else:
+            obj = Student(**data)
+            obj.save()
+            res = {'status': 'success', 'data': ''}
+        return JsonResponse(res)
+
+
+class StudentCreate1(CreateView):
     model = Student
     template_name = 'student_form.html'
     fields = ('student_name', 'student_phone_number', 'student_email')
     success_url = '/'
 
-    def get(self, request, *args, **kwargs):
-        ctx = JsonResponse({'a': 123})
-        context = super().get(request, args, kwargs)
-        return context
+    def form_valid(self, form):
+        obj = form.save(commit=False)
+        obj.save()
 
     def post(self, request, *args, **kwargs):
         context = super().post(request, args, kwargs)
-        test = 1
-        if request.META['HTTP_SEC_FETCH_MODE'] == 'cors' or test:
-            res = {'status': 'success', 'data': ''}
-            res = JsonResponse(res)
-            return res
-        return context
-
-
-class StudentUpdate(UpdateView):
-    model = Student
-    fields = ('student_name', 'student_phone_number', 'student_email')
-    template_name = 'student_form.html'
-
-    def post(self, request, *args, **kwargs):
-        context = super().post(request, args, kwargs)
-        test = 1
-        if request.META['HTTP_SEC_FETCH_MODE'] == 'cors' or test:
-            res = {'status': 'success', 'data': ''}
-            res = JsonResponse(res)
-            return res
         return context
 
 
