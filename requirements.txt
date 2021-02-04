@@ -1,0 +1,9 @@
+requests==2.25.1
+Django==3.1.5
+#mysql-connector-python
+python-dateutil
+psycopg2-binary==2.8.6
+# for apache deployment
+mod_wsgi==4.7.1
+django-cors-headers==3.6.0
+djangorestframework==3.12.2

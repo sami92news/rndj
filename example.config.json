@@ -1,0 +1,56 @@
+{
+    "server_base_url": "http://localhost:8000",
+    "server_domain": "localhost",
+    "socket_url": "http://localhost:3000",
+    "auth_server_url": "http://localhost:8000",
+    "ip2location":
+    {
+        "active":{
+            "base_url": "http://api.ipstack.com/",
+            "params": {
+                "access_key":"94bfb283cce53facd307167d1596b8c8"
+            },
+            "prefix": "http://api.ipstack.com/",
+            "postfix":"?access_key=94bfb283cce53facd307167d1596b8c8"
+        },
+        "other": {}
+    },
+    "active_db": "postgresql",
+    "default": {
+        "ENGINE": "django.db.backends.sqlite3",
+        "NAME": "db.sqlite3"
+    },
+    "postgresql": {
+        "ENGINE": "django.db.backends.postgresql",
+        "NAME": "videos",
+        "USER": "jang",
+        "PASSWORD": "",
+        "HOST": ""
+    },
+    "tenants": {
+        "ENGINE": "django_tenants.postgresql_backend",
+        "NAME": "tt",
+        "USER": "odoo",
+        "PASSWORD": "123",
+        "HOST": ""
+    },
+    "mysql": {
+        "ENGINE": "django.db.backends.mysql",
+        "NAME": "videos",
+        "USER": "root",
+        "PASSWORD": "123",
+        "OPTIONS": {
+            "init_command": "SET default_storage_engine=INNODB"
+        }
+    },
+    "email": {
+        "EMAIL_HOST" : "smtp.gmail.com",
+        "EMAIL_PORT" : "587",
+        "EMAIL_HOST_USER" : "sami.akram@digitalnet.com",
+        "EMAIL_HOST_PASSWORD" : "asddsazx",
+        "EMAIL_USE_TLS" : "True"
+    },
+    "domain": "localhost",
+    "port": "8000",
+    "https": 0
+}
