@@ -130,6 +130,8 @@ DATABASES['default'] = {
 INSTALLED_APPS.append('activity')
 INSTALLED_APPS.append('rest_framework')
 INSTALLED_APPS.append('corsheaders')
+INSTALLED_APPS.append('custom_views')
+INSTALLED_APPS.append('otto_admin')
 MIDDLEWARE = ['corsheaders.middleware.CorsMiddleware'] + MIDDLEWARE
 CORS_ORIGIN_ALLOW_ALL = True
 SITE_ID = 1
