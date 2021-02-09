@@ -126,7 +126,7 @@ DATABASES['default'] = {
     'PASSWORD': '123'
 }
 
-
+INSTALLED_APPS = ['my_admin'] + INSTALLED_APPS
 INSTALLED_APPS.append('activity')
 INSTALLED_APPS.append('rest_framework')
 INSTALLED_APPS.append('corsheaders')
